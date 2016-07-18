@@ -6,7 +6,7 @@
 //  Copyright © 2016 marcon. All rights reserved.
 //
 
-import UIKit
+import ReactiveUIKit
 
 class LoginViewController: UIViewController {
 
@@ -14,8 +14,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var login: UIButton!
 
+    private var viewModel: LoginViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = LoginViewModel(user: username.rText, password: password.rText)
+        bindEvents()
     }
 
+    private func bindEvents() {
+        viewModel?.loginButtonEnabled.bindTo(login.rEnabled)
+    }
 }
