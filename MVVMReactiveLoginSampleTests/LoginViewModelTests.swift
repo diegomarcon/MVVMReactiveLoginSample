@@ -65,6 +65,14 @@ class LoginViewModelSpec: QuickSpec {
                 self.api.response.next(LoginResponse.Failure(message: error))
                 expect(self.viewModel.error.value) == error
             }
+
+            it("should update signing in status while logging in") {
+                expect(self.viewModel.signingIn.value) == false
+                self.taps.next()
+                expect(self.viewModel.signingIn.value) == true
+                self.api.response.next(LoginResponse.Success(token: ""))
+                expect(self.viewModel.signingIn.value) == false
+            }
         }
     }
 

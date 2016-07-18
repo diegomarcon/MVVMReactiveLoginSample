@@ -20,6 +20,7 @@
 		96DE22901D3D0A030034AB1D /* LoginApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE228E1D3D0A030034AB1D /* LoginApi.swift */; };
 		96DE22911D3D0A030034AB1D /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE228F1D3D0A030034AB1D /* LoginResponse.swift */; };
 		96DE22931D3D0A300034AB1D /* LoginApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE22921D3D0A300034AB1D /* LoginApiProtocol.swift */; };
+		96DE22961D3D0EC60034AB1D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE22951D3D0EC60034AB1D /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		96DE228E1D3D0A030034AB1D /* LoginApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginApi.swift; sourceTree = "<group>"; };
 		96DE228F1D3D0A030034AB1D /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		96DE22921D3D0A300034AB1D /* LoginApiProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginApiProtocol.swift; sourceTree = "<group>"; };
+		96DE22951D3D0EC60034AB1D /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		EAE70AACF3BB77ADA8303E82 /* Pods_MVVMReactiveLoginSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVMReactiveLoginSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 				96DE228D1D3D0A030034AB1D /* Api */,
 				96DE22851D3D02900034AB1D /* AppDelegate */,
 				96DE22861D3D02960034AB1D /* Controller */,
+				96DE22941D3D0EC60034AB1D /* Protocol */,
 				96DE22871D3D077A0034AB1D /* ViewModel */,
 				96DE228A1D3D08790034AB1D /* Validator */,
 				96DE22841D3D027C0034AB1D /* Resources */,
@@ -197,6 +200,14 @@
 				96DE22921D3D0A300034AB1D /* LoginApiProtocol.swift */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		96DE22941D3D0EC60034AB1D /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				96DE22951D3D0EC60034AB1D /* LoadingView.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +415,7 @@
 				96DE22931D3D0A300034AB1D /* LoginApiProtocol.swift in Sources */,
 				96DE22911D3D0A030034AB1D /* LoginResponse.swift in Sources */,
 				96DE228C1D3D08790034AB1D /* LoginValidator.swift in Sources */,
+				96DE22961D3D0EC60034AB1D /* LoadingView.swift in Sources */,
 				96DE22891D3D077A0034AB1D /* LoginViewModel.swift in Sources */,
 				96DE22901D3D0A030034AB1D /* LoginApi.swift in Sources */,
 			);

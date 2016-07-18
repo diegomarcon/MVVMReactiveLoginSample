@@ -11,6 +11,7 @@ import ReactiveKit
 class LoginViewModel {
     private let disposeBag = DisposeBag()
 
+    let signingIn = Property<Bool>(false)
     let loginButtonEnabled = Property<Bool>(false)
     let error = Property<String?>(nil)
     let authToken = Property<String?>(nil)
@@ -29,7 +30,11 @@ class LoginViewModel {
     }
 
     private func login(user: String?, password: String?, api: LoginApiProtocol) {
+        signingIn.value = true
+
         api.login(user!, password: password!).observeNext({ [weak self] response in
+            self?.signingIn.value = false
+
             switch response {
             case .Failure(let message):
                 self?.error.value = message

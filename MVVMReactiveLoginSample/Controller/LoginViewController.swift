@@ -8,7 +8,7 @@
 
 import ReactiveUIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, LoadingView {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -26,6 +26,10 @@ class LoginViewController: UIViewController {
 
     private func bindEvents() {
         viewModel?.loginButtonEnabled.bindTo(login.rEnabled)
+
+        viewModel?.signingIn.observeNext({[weak self] signingIn in
+            signingIn ? self?.showLoadingView() : self?.hideLoadingView()
+        }).disposeIn(rBag)
 
         viewModel?.authToken.observeNext({ token in
             if let token = token {
