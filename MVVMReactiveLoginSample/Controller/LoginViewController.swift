@@ -18,11 +18,25 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoginViewModel(user: username.rText, password: password.rText)
+        viewModel = LoginViewModel(loginTaps: login.rTap,
+                                        user: username.rText,
+                                    password: password.rText)
         bindEvents()
     }
 
     private func bindEvents() {
         viewModel?.loginButtonEnabled.bindTo(login.rEnabled)
+
+        viewModel?.authToken.observeNext({ token in
+            if let token = token {
+                print("Hey, logged in with token \(token)")
+            }
+        }).disposeIn(rBag)
+
+        viewModel?.error.observeNext({ error in
+            if let error = error {
+                print("Error: \(error)")
+            }
+        }).disposeIn(rBag)
     }
 }

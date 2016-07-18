@@ -11,7 +11,7 @@ import ReactiveAlamofire
 import ReactiveKit
 
 class LoginApi: LoginApiProtocol {
-    private let url = "<YOUR_LOGIN_URL>"
+    private let url = "your.url.here"
 
     func login(user: String, password: String) -> Stream<LoginResponse> {
         let parameters = ["user" : user, "password" : password]

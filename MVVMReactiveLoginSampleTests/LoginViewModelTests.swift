@@ -12,13 +12,18 @@ import ReactiveKit
 @testable import MVVMReactiveLoginSample
 
 class LoginViewModelSpec: QuickSpec {
+    var api = LoginMockedApi()
+    var taps = PushStream<Void>()
     var user = Property<String?>("")
     var password = Property<String?>("")
     var viewModel: LoginViewModel!
 
     override func spec() {
         beforeEach() {
-            self.viewModel = LoginViewModel(user: self.user, password: self.password)
+            self.viewModel = LoginViewModel(loginTaps: self.taps.toStream(),
+                                                 user: self.user,
+                                             password: self.password,
+                                                  api: self.api)
         }
 
         describe("the login view model") {
@@ -46,6 +51,28 @@ class LoginViewModelSpec: QuickSpec {
                 self.password.value = "password"
                 expect(self.viewModel.loginButtonEnabled.value) == true
             }
+
+            it("should update token if login is sucessfull") {
+                let token = "token"
+                self.taps.next()
+                self.api.response.next(LoginResponse.Success(token: token))
+                expect(self.viewModel.authToken.value) == token
+            }
+
+            it("should update error message if login fails") {
+                let error = "error"
+                self.taps.next()
+                self.api.response.next(LoginResponse.Failure(message: error))
+                expect(self.viewModel.error.value) == error
+            }
+        }
+    }
+
+    class LoginMockedApi: LoginApiProtocol {
+        let response = PushStream<LoginResponse>()
+
+        func login(user: String, password: String) -> Stream<LoginResponse> {
+            return response.toStream()
         }
     }
 }
