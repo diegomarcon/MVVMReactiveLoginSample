@@ -8,7 +8,7 @@
 
 import ReactiveUIKit
 
-class LoginViewController: UIViewController, LoadingView {
+class LoginViewController: UIViewController, LoadingView, MessagePresenter {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -31,15 +31,17 @@ class LoginViewController: UIViewController, LoadingView {
             signingIn ? self?.showLoadingView() : self?.hideLoadingView()
         }).disposeIn(rBag)
 
-        viewModel?.authToken.observeNext({ token in
+        viewModel?.authToken.observeNext({[weak self] token in
             if let token = token {
                 print("Hey, logged in with token \(token)")
+                self?.showMessage("Logged in!", title: "Success")
             }
         }).disposeIn(rBag)
 
-        viewModel?.error.observeNext({ error in
+        viewModel?.error.observeNext({[weak self] error in
             if let error = error {
                 print("Error: \(error)")
+                self?.showErrorMessage(error)
             }
         }).disposeIn(rBag)
     }
