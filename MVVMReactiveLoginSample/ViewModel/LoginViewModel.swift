@@ -15,7 +15,6 @@ class LoginViewModel {
     let loginButtonEnabled = Property<Bool>(false)
     let error = Property<String?>(nil)
     let authToken = Property<String?>(nil)
-    var taps = Property<Void>()
 
     init(loginTaps: Stream<Void>, user: Property<String?>,
          password: Property<String?>, api: LoginApiProtocol = LoginApi()) {
