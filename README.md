@@ -1,6 +1,6 @@
 # MVVMReactiveLoginSample
 
-This is a simple example of a mvvm login controller with ReactiveKit.
+This is a simple example of a mvvm login controller with ReactiveKit. You can find more details about this sample on this [post on Medium](https://medium.com/@diegomarcon/mvvm-and-reactive-kit-2dbbb94f48bc#.bu3rjk92k)
 
 ##Setup
 
