@@ -6,7 +6,8 @@
 //  Copyright © 2016 marcon. All rights reserved.
 //
 
-import ReactiveUIKit
+import ReactiveKit
+import Bond
 
 class LoginViewController: UIViewController, LoadingView, MessagePresenter {
 
@@ -18,31 +19,31 @@ class LoginViewController: UIViewController, LoadingView, MessagePresenter {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoginViewModel(loginTaps: login.rTap,
-                                        user: username.rText,
-                                    password: password.rText)
+        viewModel = LoginViewModel(loginTaps: login.reactive.tap,
+                                        user: username.reactive.text,
+                                    password: password.reactive.text)
         bindEvents()
     }
 
     private func bindEvents() {
-        viewModel?.loginButtonEnabled.bindTo(login.rEnabled)
+        viewModel?.loginButtonEnabled.bind(to: login.reactive.isEnabled)
 
-        viewModel?.signingIn.observeNext({[weak self] signingIn in
+        viewModel?.signingIn.observeNext(with: {[weak self] signingIn in
             signingIn ? self?.showLoadingView() : self?.hideLoadingView()
-        }).disposeIn(rBag)
+        }).dispose()
 
-        viewModel?.authToken.observeNext({[weak self] token in
+        viewModel?.authToken.observeNext(with: {[weak self] token in
             if let token = token {
                 print("Hey, logged in with token \(token)")
-                self?.showMessage("Logged in!", title: "Success")
+                self?.showMessage(message: "Logged in!", title: "Success")
             }
-        }).disposeIn(rBag)
+        }).dispose()
 
-        viewModel?.error.observeNext({[weak self] error in
+        viewModel?.error.observeNext(with: {[weak self] error in
             if let error = error {
                 print("Error: \(error)")
-                self?.showErrorMessage(error)
+                self?.showErrorMessage(error: error)
             }
-        }).disposeIn(rBag)
+        }).dispose()
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import ReactiveKit
+import Bond
 
 class LoginViewModel {
     private let disposeBag = DisposeBag()
@@ -16,22 +17,22 @@ class LoginViewModel {
     let error = Property<String?>(nil)
     let authToken = Property<String?>(nil)
 
-    init(loginTaps: Stream<Void>, user: Property<String?>,
-         password: Property<String?>, api: LoginApiProtocol = LoginApi()) {
+    init(loginTaps: SafeSignal<Void>, user: DynamicSubject<String?>,
+         password: DynamicSubject<String?>, api: LoginApiProtocol = LoginApi()) {
 
-        loginTaps.observeNext({[unowned self] in
-            self.login(user.value, password: password.value, api: api)
-        }).disposeIn(disposeBag)
+        loginTaps.observeNext(with: {[unowned self] in
+            self.login(user: user.value, password: password.value, api: api)
+        }).dispose(in: disposeBag)
 
         combineLatest(user, password).observeNext {[unowned self] user, password in
-            self.loginButtonEnabled.value = LoginValidator.isValid(user, password: password)
-        }.disposeIn(disposeBag)
+            self.loginButtonEnabled.value = LoginValidator.isValid(user: user, password: password)
+        }.dispose(in: disposeBag)
     }
 
     private func login(user: String?, password: String?, api: LoginApiProtocol) {
         signingIn.value = true
 
-        api.login(user!, password: password!).observeNext({ [weak self] response in
+        api.login(user: user!, password: password!).observeNext(with: { [weak self] response in
             self?.signingIn.value = false
 
             switch response {
@@ -40,6 +41,6 @@ class LoginViewModel {
             case .Success(let token):
                 self?.authToken.value = token
             }
-        }).disposeIn(disposeBag)
+        }).dispose(in: disposeBag)
     }
 }

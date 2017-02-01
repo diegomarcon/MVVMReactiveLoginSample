@@ -13,19 +13,19 @@ import ReactiveKit
 class LoginApi: LoginApiProtocol {
     private let url = "your.url.here"
 
-    func login(user: String, password: String) -> Stream<LoginResponse> {
+    func login(user: String, password: String) -> SafeSignal<LoginResponse> {
         let parameters = ["user" : user, "password" : password]
 
-        return Alamofire.request(.GET, url, parameters: parameters)
-            .toJSONOperation()
+        return Alamofire.request(url, method: .get, parameters: parameters)
+            .toJSONSignal()
             .flatMapError { error in
-                return Stream.just(["error" : error.localizedDescription])
-            }.map({[unowned self] json in
-                return self.parseResponse(json)
-            })
+                return SafeSignal.just(["error" : error.localizedDescription])
+            }.map { [unowned self] json in
+                return self.parseResponse(json: json)
+            }
     }
 
-    private func parseResponse(json: AnyObject?) -> LoginResponse {
+    private func parseResponse(json: Any?) -> LoginResponse {
         if let json = json as? Dictionary<String, AnyObject> {
             if let error = json["error"] as? String {
                 return .Failure(message: error)

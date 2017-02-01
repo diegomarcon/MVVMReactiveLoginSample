@@ -9,5 +9,5 @@
 import ReactiveKit
 
 protocol LoginApiProtocol {
-    func login(user: String, password: String) -> Stream<LoginResponse>
+    func login(user: String, password: String) -> SafeSignal<LoginResponse>
 }

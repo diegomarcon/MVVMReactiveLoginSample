@@ -15,15 +15,15 @@ protocol MessagePresenter {
 
 extension MessagePresenter where Self: UIViewController {
     func showErrorMessage(error: String?) {
-        showMessage(error, title: "Something went wrong")
+        showMessage(message: error, title: "Something went wrong")
     }
 
     func showMessage(message: String?, title: String? = nil) {
         let alert = UIAlertController(title: title,
                                       message: message,
-                                      preferredStyle: .Alert)
+                                      preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
