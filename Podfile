@@ -11,8 +11,8 @@ target 'MVVMReactiveLoginSample' do
 
   target 'MVVMReactiveLoginSampleTests' do
     inherit! :search_paths
-    pod 'Quick'
-    pod 'Nimble'
+    pod 'Quick', '~> 1.0.0'
+    pod 'Nimble', '~> 6.0.0'
   end
 
 end

@@ -14,8 +14,8 @@ PODS:
 DEPENDENCIES:
   - AlamofireReactive (~> 2.0)
   - Bond (~> 6.0)
-  - Nimble
-  - Quick
+  - Nimble (~> 6.0.0)
+  - Quick (~> 1.0.0)
   - ReactiveKit (~> 3.2)
 
 SPEC CHECKSUMS:
@@ -27,6 +27,6 @@ SPEC CHECKSUMS:
   Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
   ReactiveKit: 56a5b949847ba137da40045149785e569f292e07
 
-PODFILE CHECKSUM: 07685cfe925753c9422e159787a5ce130f803362
+PODFILE CHECKSUM: e8f5eb732e826969acc731b6e2024663d0b414a7
 
 COCOAPODS: 1.2.0

@@ -20,8 +20,8 @@ class LoginViewController: UIViewController, LoadingView, MessagePresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = LoginViewModel(loginTaps: login.reactive.tap,
-                                        user: username.reactive.text,
-                                    password: password.reactive.text)
+                                        user: username.reactive.text.toSignal(),
+                                    password: password.reactive.text.toSignal())
         bindEvents()
     }
 
