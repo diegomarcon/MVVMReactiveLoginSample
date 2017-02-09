@@ -15,8 +15,7 @@ class LoginViewController: UIViewController, LoadingView, MessagePresenter {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var login: UIButton!
 
-    let disposeBag = DisposeBag()
-
+    private let disposeBag = DisposeBag()
     private var viewModel: LoginViewModel?
 
     override func viewDidLoad() {
