@@ -15,6 +15,8 @@ class LoginViewController: UIViewController, LoadingView, MessagePresenter {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var login: UIButton!
 
+    let disposeBag = DisposeBag()
+
     private var viewModel: LoginViewModel?
 
     override func viewDidLoad() {
@@ -30,20 +32,20 @@ class LoginViewController: UIViewController, LoadingView, MessagePresenter {
 
         viewModel?.signingIn.observeNext(with: {[weak self] signingIn in
             signingIn ? self?.showLoadingView() : self?.hideLoadingView()
-        }).dispose()
+        }).dispose(in: disposeBag)
 
         viewModel?.authToken.observeNext(with: {[weak self] token in
             if let token = token {
                 print("Hey, logged in with token \(token)")
                 self?.showMessage(message: "Logged in!", title: "Success")
             }
-        }).dispose()
+        }).dispose(in: disposeBag)
 
         viewModel?.error.observeNext(with: {[weak self] error in
             if let error = error {
                 print("Error: \(error)")
                 self?.showErrorMessage(error: error)
             }
-        }).dispose()
+        }).dispose(in: disposeBag)
     }
 }
