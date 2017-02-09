@@ -4,15 +4,15 @@
 target 'MVVMReactiveLoginSample' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'ReactiveKit', '~> 2.1'
-  pod 'ReactiveUIKit', '~> 2.0'
-  pod 'AlamofireReactive', '~> 1.1'
+  pod 'ReactiveKit', '~> 3.2'
+  pod 'Bond', '~> 6.0'
+  pod 'AlamofireReactive', '~> 2.0'
   # Pods for MVVMReactiveLoginSample
 
   target 'MVVMReactiveLoginSampleTests' do
     inherit! :search_paths
-    pod 'Quick'
-    pod 'Nimble'
+    pod 'Quick', '~> 1.0.0'
+    pod 'Nimble', '~> 6.0.0'
   end
 
 end

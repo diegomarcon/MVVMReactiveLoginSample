@@ -31,8 +31,8 @@ extension LoadingView where Self: UIViewController {
     }
     
     func indicatorView() -> UIActivityIndicatorView {
-        let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        indicatorView.center = CGPointMake(view.center.x, view.center.y);
+        let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        indicatorView.center = CGPoint(x: view.center.x, y: view.center.y);
         indicatorView.startAnimating()
         return indicatorView
     }

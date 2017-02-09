@@ -8,47 +8,48 @@
 
 import Quick
 import Nimble
+import Bond
 import ReactiveKit
 @testable import MVVMReactiveLoginSample
 
 class LoginViewModelSpec: QuickSpec {
     var api = LoginMockedApi()
-    var taps = PushStream<Void>()
-    var user = Property<String?>("")
-    var password = Property<String?>("")
+    var taps = SafePublishSubject<Void>()
+    var user = SafePublishSubject<String?>()
+    var password = SafePublishSubject<String?>()
     var viewModel: LoginViewModel!
 
     override func spec() {
         beforeEach() {
-            self.viewModel = LoginViewModel(loginTaps: self.taps.toStream(),
-                                                 user: self.user,
-                                             password: self.password,
+            self.viewModel = LoginViewModel(loginTaps: self.taps.toSignal(),
+                                                 user: self.user.toSignal(),
+                                             password: self.password.toSignal(),
                                                   api: self.api)
         }
 
         describe("the login view model") {
 
             it("should disable login button if user and password are empty") {
-                self.user.value = ""
-                self.password.value = ""
+                self.user.next("")
+                self.password.next("")
                 expect(self.viewModel.loginButtonEnabled.value) == false
             }
 
             it("should disable login button if only user are empty") {
-                self.user.value = ""
-                self.password.value = "password"
+                self.user.next("")
+                self.password.next("password")
                 expect(self.viewModel.loginButtonEnabled.value) == false
             }
 
             it("should disable login button if only password are empty") {
-                self.user.value = "someUser"
-                self.password.value = ""
+                self.user.next("someUser")
+                self.password.next("")
                 expect(self.viewModel.loginButtonEnabled.value) == false
             }
 
             it("should enable login button if user and password aren't empty") {
-                self.user.value = "someUser"
-                self.password.value = "password"
+                self.user.next("someUser")
+                self.password.next("password")
                 expect(self.viewModel.loginButtonEnabled.value) == true
             }
 
@@ -77,10 +78,10 @@ class LoginViewModelSpec: QuickSpec {
     }
 
     class LoginMockedApi: LoginApiProtocol {
-        let response = PushStream<LoginResponse>()
+        let response = SafePublishSubject<LoginResponse>()
 
-        func login(user: String, password: String) -> Stream<LoginResponse> {
-            return response.toStream()
+        func login(user: String, password: String) -> SafeSignal<LoginResponse> {
+            return response.toSignal()
         }
     }
 }
